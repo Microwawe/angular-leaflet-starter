@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, EventEmitter, HostBinding, Input, OnDestroy, Output, ViewChild} from '@angular/core';
-import {SIGHTINGS, Sighting} from '../app.constants';
+import {AfterViewInit, Component, OnDestroy, ViewChild} from '@angular/core';
+import {Sighting} from '../app.constants';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {takeUntil} from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {SightingService} from '../shared/services/sighting.service';
-import {Kunta} from '../shared/enums/kunta.enum';
 
 @Component({
   selector: 'app-results-list',
