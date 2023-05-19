@@ -1,15 +1,20 @@
 <div>
-  <div id="map"
-       leaflet
-       (leafletMapReady)="initializeMap($event)"
-       [leafletOptions]="options"
-       (leafletClick)="onMapClick($event)">
-    <div class="leaflet-bottom leaflet-left">
-      <app-geocoding (onSearch)="refreshSearchList($event)"></app-geocoding>
-    </div>
-  </div>
+	<div
+		id="map"
+		leaflet
+		(leafletMapReady)="initializeMap($event)"
+		[leafletOptions]="options"
+		(leafletClick)="onMapClick($event)"
+	>
+		<!-- <div class="leaflet-bottom leaflet-left">
+			<app-geocoding (onSearch)="refreshSearchList($event)"></app-geocoding>
+		</div> -->
+	</div>
 </div>
-<div id="details-panel">
-  <app-results-list [results]="results" (locationSelected)="getAddress($event)"></app-results-list>
+<!-- <div id="details-panel">
+  <app-results-list
+    [results]="results"
+    (locationSelected)="getAddress($event)"
+  ></app-results-list>
   <app-map-point-form [mapPoint]="mapPoint"></app-map-point-form>
-</div>
+</div> -->

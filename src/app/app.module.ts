@@ -5,30 +5,45 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {GeocodingComponent} from './geocoding/geocoding.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import {NominatimService} from './services/nominatim-service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MapComponent} from './map/map.component';
 import {MapPointFormComponent} from './map-point-form/map-point-form.component';
 import {ResultsListComponent} from './results-list/results-list.component';
+import {TruncatePipe} from './shared/pipes/truncate.pipe';
+import {OrderByPipe} from './shared/pipes/order-by.pipe';
+import {DatePipe} from '@angular/common';
+import {FilterPipe} from './shared/pipes/filter.pipe';
+import {NominatimService} from './services/nominatim-service';
+import {SightingService} from './shared/services/sighting.service';
+import {HeaderComponent} from './core/components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GeocodingComponent,
+	HeaderComponent,
     MapComponent,
     MapPointFormComponent,
-    ResultsListComponent
+    ResultsListComponent,
+	TruncatePipe,
+	FilterPipe,
+	OrderByPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     LeafletModule,
-    FormsModule
+    FormsModule,
+	ScrollingModule
   ],
   providers: [
-    NominatimService
+	NominatimService,
+	SightingService,
+	DatePipe,
+	FilterPipe
   ],
   bootstrap: [AppComponent]
 })

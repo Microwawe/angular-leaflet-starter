@@ -1,10 +1,65 @@
-<div id="results-list">
-  <h3>Results</h3>
-  <div id="results">
-    <ul>
-      <li *ngFor="let result of results" (click)="selectResult(result)">
-        {{ result.displayName }}
-      </li>
-    </ul>
-  </div>
+<div class="h-screen flex flex-col">
+	<div class="">
+		<input
+			type="text"
+			placeholder="Filter..."
+			[ngModel]="sightingService.filterStr | async"
+			(keyup)="onFilterKeyup($event)"
+			class="border border-slate-500 p-2 rounded-md"
+		/>
+	</div>
+	<cdk-virtual-scroll-viewport #scrollViewport itemSize="28" class="flex-auto w-[420px]">
+		<table class="relative w-full">
+			<thead class="sticky bg-white border-b" [ngStyle]="{ 'top': stickyOffset }">
+				<tr class="text-left">
+					<th (click)="sort('sightDate')" class="pl-2 cursor-pointer">
+						Pvm
+						<ng-container
+							*ngTemplateOutlet="sortArrow; context: { column: 'sightDate' }"
+						></ng-container>
+					</th>
+					<th (click)="sort('species')" class="pl-2 cursor-pointer">
+						Laji
+						<ng-container
+							*ngTemplateOutlet="sortArrow; context: { column: 'species' }"
+						></ng-container>
+					</th>
+					<th (click)="sort('amount')" class="pl-2 cursor-pointer">
+						Lkm
+						<ng-container
+							*ngTemplateOutlet="sortArrow; context: { column: 'amount' }"
+						></ng-container>
+					</th>
+					<th (click)="sort('location')" class="px-2 cursor-pointer">
+						Sijainti
+						<ng-container
+							*ngTemplateOutlet="sortArrow; context: { column: 'location' }"
+						></ng-container>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					*cdkVirtualFor="
+						let sight of sightingService.sightings
+							| async
+							| filter : (sightingService.filterStr | async)
+							| orderBy : order
+					"
+					(click)="selectResult(sight)"
+					class="odd:bg-slate-100 even:bg-slate-50"
+				>
+					<td class="pl-2">{{ sight.sightDate | date : "dd.MM." }}</td>
+					<td class="pl-2">{{ sight.species | truncate : 15 }}</td>
+					<td class="pl-2">{{ sight.amount }}</td>
+					<td class="px-2">{{ sight.location | truncate }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</cdk-virtual-scroll-viewport>
 </div>
+
+<ng-template #sortArrow let-column="column">
+	<span *ngIf="order == column">&uarr;</span>
+	<span *ngIf="order == '-' + column">&darr;</span>
+</ng-template>
