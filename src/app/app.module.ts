@@ -18,6 +18,7 @@ import {FilterPipe} from './shared/pipes/filter.pipe';
 import {NominatimService} from './services/nominatim-service';
 import {SightingService} from './shared/services/sighting.service';
 import {HeaderComponent} from './core/components/header/header.component';
+import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {HeaderComponent} from './core/components/header/header.component';
     HttpClientModule,
     LeafletModule,
     FormsModule,
-	ScrollingModule
+	ScrollingModule,
+	LeafletMarkerClusterModule
   ],
   providers: [
 	NominatimService,

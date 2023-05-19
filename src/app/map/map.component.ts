@@ -9,6 +9,7 @@ import {
   Map,
   MapOptions,
   marker,
+  MarkerClusterGroup,
   tileLayer,
 } from "leaflet";
 import {
@@ -36,7 +37,8 @@ export class MapComponent implements OnInit {
   options: MapOptions;
   markerGroup: LayerGroup = new LayerGroup();
 
-  results: NominatimResponse[];
+  markerClusterGroup: MarkerClusterGroup = new MarkerClusterGroup({removeOutsideVisibleBounds: true});
+  markerClusterData = [];
 
   constructor(private datePipe: DatePipe, private filterPipe: FilterPipe, private sightingService: SightingService) {}
 
@@ -71,12 +73,8 @@ export class MapComponent implements OnInit {
 //     this.createMarkers();
 //   }
 
-  refreshSearchList(results: NominatimResponse[]) {
-    this.results = results;
-  }
 
   onMapClick(e: LeafletMouseEvent) {
-    this.clearMarkers();
     this.updateMapPoint(e.latlng.lat, e.latlng.lng);
   }
 
@@ -120,9 +118,9 @@ export class MapComponent implements OnInit {
         .on("click", this.markerOnClick, sight)
         .bindTooltip(sight.species, { direction: "top" })
         .bindPopup(this.getPopupContent(sight))
-        .addTo(this.markerGroup);
+        .addTo(this.markerClusterGroup);
     }
-	this.markerGroup.addTo(this.map);
+	this.markerClusterGroup.addTo(this.map);
   }
 
   markerOnClick(e) {
@@ -176,6 +174,6 @@ export class MapComponent implements OnInit {
   }
 
   clearMarkers() {
-	this.markerGroup.clearLayers();
+	this.markerClusterGroup.clearLayers();
   }
 }

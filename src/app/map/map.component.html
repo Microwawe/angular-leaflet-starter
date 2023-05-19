@@ -5,6 +5,7 @@
 		(leafletMapReady)="initializeMap($event)"
 		[leafletOptions]="options"
 		(leafletClick)="onMapClick($event)"
+		[leafletMarkerCluster]="markerClusterData"
 	>
 		<!-- <div class="leaflet-bottom leaflet-left">
 			<app-geocoding (onSearch)="refreshSearchList($event)"></app-geocoding>
